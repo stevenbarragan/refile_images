@@ -1,17 +1,17 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "refile_hassleless/version"
+require "refile_images/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "refile_hassleless"
-  s.version     = RefileHassleless::VERSION
+  s.name        = "refile_images"
+  s.version     = RefileImages::VERSION
   s.authors     = ["Steven Barragán"]
   s.email       = ["me@steven.mx"]
-  s.homepage    = "http://github.com/stacksocial/refile_hassleless"
-  s.summary     = "Summary of RefileHassleless."
-  s.description = "Description of RefileHassleless."
+  s.homepage    = "http://github.com/stacksocial/refile_images"
+  s.summary     = "Summary of RefileImages."
+  s.description = "Description of RefileImages."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]

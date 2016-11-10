@@ -1,4 +1,4 @@
-class CreateRefileHasslelessImages < ActiveRecord::Migration
+class CreateRefileImagesImages < ActiveRecord::Migration
   def change
     create_table :images do |t|
       t.string  :file_id

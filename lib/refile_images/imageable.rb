@@ -3,7 +3,7 @@ require "refile"
 require "refile/rails"
 require "refile/attachment/active_record"
 
-module RefileHassleless
+module RefileImages
   module Imageable
     extend ActiveSupport::Concern
     extend Refile::Attachment

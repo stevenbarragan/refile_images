@@ -2,7 +2,7 @@ require "rails_helper"
 require "refile"
 require "refile/file_double"
 
-describe RefileHassleless::Imageable do
+describe RefileImages::Imageable do
   describe ".image" do
     klass = Class.new(ActiveRecord::Base) do
       self.table_name = :posts

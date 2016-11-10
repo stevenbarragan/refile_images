@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    refile_hassleless (0.0.1)
+    refile_images (0.0.1)
       rails
       refile
 
@@ -173,7 +173,7 @@ PLATFORMS
 DEPENDENCIES
   pry-byebug
   refile!
-  refile_hassleless!
+  refile_images!
   rspec-rails
   shoulda-matchers (~> 3.1)
   sqlite3

@@ -1,2 +1,2 @@
-RefileHassleless::Engine.routes.draw do
+RefileImages::Engine.routes.draw do
 end

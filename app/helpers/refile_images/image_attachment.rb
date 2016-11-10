@@ -1,4 +1,4 @@
-module RefileHassleless
+module RefileImages
   module ImageAttachment
     include Refile::AttachmentHelper
 
