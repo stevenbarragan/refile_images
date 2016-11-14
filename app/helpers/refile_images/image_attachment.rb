@@ -11,8 +11,8 @@ module RefileImages
     end
 
     module FormBuilder
-      def attachment_field(method, *options)
-        super("#{ method.to_s.pluralize }_files".to_sym, *options)
+      def attachment_field(method, **options)
+        super(method, options.reverse_merge(direct: true))
       end
     end
 
