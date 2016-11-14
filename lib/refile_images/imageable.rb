@@ -10,17 +10,17 @@ module RefileImages
 
     module ClassMethods
 
-      def image(name, *options)
-        attachments = :files
+      def image(name, attachment: :file, append: false, defaults: {})
+        attachments = attachment.to_s.pluralize.to_sym
         plural      = name.to_s.pluralize.to_sym
         singular    = name.to_s.singularize.to_sym
 
-        has_many plural, -> { where file_filename: singular },
+        has_many plural, -> { where "#{ attachment }_filename" => singular },
           as:         :imageable,
           class_name: "Image",
           dependent:  :destroy
 
-        accepts_attachments_for plural
+        accepts_attachments_for plural, attachment: attachment, append: append
 
         if singular == name
           alias_method :"#{ name }_attachment_definition", :"#{ plural }_#{ attachments }_attachment_definition"
@@ -29,20 +29,40 @@ module RefileImages
           define_method name do
             send(plural).last
           end
+
+          define_method :"#{ name }=" do |file|
+            file = "[#{file}]" if file.is_a?(String) && !file.match(/^\[/)
+
+            send("#{ plural }_#{ attachments }=", [file])
+          end
         end
 
-        image_options[name] = options.first
+        image_options[name] = defaults
 
         define_method :"#{ plural }_#{ attachments }=" do |files|
-          files = (files.is_a?(String) ? [files] : files).map do |file|
-            file = Refile.parse_json(file, symbolize_names: true)
+          cache, files = files.partition { |file| file.is_a?(String) }
 
-            (file.is_a?(Array) ? file : [file] ).map do |file|
-              file.merge(filename: singular)
-            end.to_json
+          cache = Refile.parse_json(cache.first)
+
+          if not append and (files.present? or cache.present?)
+            send("#{ plural }=", [])
           end
 
-          super(files)
+          if files.empty? and cache.present?
+            cache.select(&:present?).each do |file|
+              send(plural).build(
+                attachment => file.to_json,
+                "#{ attachment }_filename" => name
+              )
+            end
+          else
+            files.select(&:present?).each do |file|
+              send(plural).build(
+                attachment => file,
+                "#{ attachment }_filename" => name
+              )
+            end
+          end
         end
       end
 
