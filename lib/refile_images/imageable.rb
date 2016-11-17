@@ -35,6 +35,10 @@ module RefileImages
 
             send("#{ plural }_#{ attachments }=", [file])
           end
+
+          define_method :"#{ name }_url" do |*args|
+            send(name).send("#{ attachment }_url", *args)
+          end
         end
 
         image_options[name] = defaults
