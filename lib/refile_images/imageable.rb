@@ -80,13 +80,15 @@ module RefileImages
     def images_hash
       self.class.image_options.inject({}) do |images, (name, sizes)|
         send(name).tap do |image|
-          images[name] = if image.respond_to? :each
-             image.map do |img|
-               image_hash(img, sizes)
+          if image
+            images[name] = if image.respond_to? :each
+               image.map do |img|
+                 image_hash(img, sizes)
+               end
+             else
+               image_hash(image, sizes)
              end
-           else
-             image_hash(image, sizes)
-           end
+          end
         end
 
       images
