@@ -77,35 +77,14 @@ module RefileImages
       end
     end
 
-    def images
-      @images ||= OpenStruct.new(images_hash)
+    def get_image_url(image, size)
+      Refile.attachment_url(image, :file, image_config(image.file_filename)[size])
     end
 
-    def images_hash
-      self.class.image_options.inject({}) do |images, (name, sizes)|
-        send(name).tap do |image|
-          if image
-            images[name] = if image.respond_to? :each
-               image.map do |img|
-                 image_hash(img, sizes)
-               end
-             else
-               image_hash(image, sizes)
-             end
-          end
-        end
+    private
 
-      images
-
-      end
-    end
-
-    def image_hash(image, sizes)
-      sizes.inject({}) do |setup, (name, config)|
-        setup.merge(
-          name => Refile.attachment_url(image, :file, config)
-      )
-      end
+    def image_config(name)
+      self.class.image_options[name.to_sym]
     end
   end
 end
