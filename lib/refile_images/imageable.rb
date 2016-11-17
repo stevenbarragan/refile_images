@@ -77,8 +77,13 @@ module RefileImages
       end
     end
 
-    def get_image_url(image, size)
-      Refile.attachment_url(image, :file, image_config(image.file_filename)[size])
+    def get_image_url(image, size, *options)
+      Refile.attachment_url(
+        image,
+        :file,
+        image_config(image.file_filename)[size],
+        *options
+      )
     end
 
     private
