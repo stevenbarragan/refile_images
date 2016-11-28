@@ -18,7 +18,8 @@ module RefileImages
         has_many plural, -> { where "#{ attachment }_filename" => singular },
           as:         :imageable,
           class_name: "Image",
-          dependent:  :destroy
+          dependent:  :destroy,
+          inverse_of: :imageable
 
         accepts_attachments_for plural, attachment: attachment, append: append
 
