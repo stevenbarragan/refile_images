@@ -1,6 +1,8 @@
 Refile Images
 -------------
 
+[![Build Status](https://travis-ci.org/stacksocial/refile_images.svg?branch=master)](https://travis-ci.org/refile/refile)
+
 Refile + Only one migration needed ever + default images sizes
 
 ## Quick start
