@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "rails_helper"
 require "refile"
 require "refile/file_double"
@@ -40,8 +41,8 @@ describe RefileImages::Imageable do
         it "set up default sizes" do
           instance.main_image = Refile::FileDouble.new("hello", content_type: "image/png")
 
-          expect(instance.main_image.url_for :small).to include "fit/100/100"
-          expect(instance.main_image.url_for :large).to include "fill/1000/1000"
+          expect(instance.main_image.url_for(:small)).to include "fit/100/100"
+          expect(instance.main_image.url_for(:large)).to include "fill/1000/1000"
         end
 
         it "receives serialized data and retrieves file from it" do
@@ -54,12 +55,14 @@ describe RefileImages::Imageable do
           expect(instance.main_image.file_content_type).to eq "image/png"
           expect(instance.main_image.file_size).to eq 5
         end
-
       end
 
       describe ":association_:attachments" do
         it "builds records from assigned files" do
-          instance.pictures_files = [Refile::FileDouble.new("hello", content_type: "image/png"), Refile::FileDouble.new("world", content_type: "image/png")]
+          instance.pictures_files = [
+            Refile::FileDouble.new("hello", content_type: "image/png"),
+            Refile::FileDouble.new("world", content_type: "image/png")
+          ]
 
           expect(instance.save).to be_truthy
           expect(instance.pictures.size).to eq 2
@@ -69,10 +72,13 @@ describe RefileImages::Imageable do
         end
 
         it "set up default sizes" do
-          instance.pictures_files = [Refile::FileDouble.new("hello", content_type: "image/png"), Refile::FileDouble.new("world", content_type: "image/png")]
+          instance.pictures_files = [
+            Refile::FileDouble.new("hello", content_type: "image/png"),
+            Refile::FileDouble.new("world", content_type: "image/png")
+          ]
 
-          expect(instance.pictures[0].url_for :small).to include "fit/20/20"
-          expect(instance.pictures[1].url_for :small).to include "fit/20/20"
+          expect(instance.pictures[0].url_for(:small)).to include "fit/20/20"
+          expect(instance.pictures[1].url_for(:small)).to include "fit/20/20"
         end
 
         it "builds records from cache" do

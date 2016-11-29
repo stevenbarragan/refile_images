@@ -1,3 +1,4 @@
+# This migration comes from refile_images (originally 20161107201317)
 # frozen_string_literal: true
 class CreateRefileImagesImages < ActiveRecord::Migration
   def change

@@ -1,29 +1,31 @@
+# frozen_string_literal: true
 begin
-  require 'bundler/setup'
+  require "bundler/setup"
 rescue LoadError
-  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+  puts "You must `gem install bundler` and `bundle install` to run rake tasks"
 end
 
-require 'rspec/core/rake_task'
+require "rspec/core/rake_task"
+require "rubocop/rake_task"
 
 RSpec::Core::RakeTask.new(:spec)
+RuboCop::RakeTask.new
 
-task default: %i{db:migrate spec}
+task default: %i(spec rubocop)
 
-require 'rdoc/task'
+require "rdoc/task"
 
 RDoc::Task.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'RefileImages'
-  rdoc.options << '--line-numbers'
-  rdoc.rdoc_files.include('README.rdoc')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.rdoc_dir = "rdoc"
+  rdoc.title    = "RefileImages"
+  rdoc.options << "--line-numbers"
+  rdoc.rdoc_files.include("README.rdoc")
+  rdoc.rdoc_files.include("lib/**/*.rb")
 end
 
 APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
-load 'rails/tasks/engine.rake'
+load "rails/tasks/engine.rake"
 
-load 'rails/tasks/statistics.rake'
+load "rails/tasks/statistics.rake"
 
 Bundler::GemHelper.install_tasks
-

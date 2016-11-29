@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
@@ -24,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "shoulda-matchers", "~> 3.1"
   s.add_development_dependency "webmock"
+  s.add_development_dependency "rubocop", "~> 0.45"
 end

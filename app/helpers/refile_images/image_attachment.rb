@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module RefileImages
   module ImageAttachment
     include Refile::AttachmentHelper
@@ -15,6 +16,5 @@ module RefileImages
         super(method, options.reverse_merge(direct: true))
       end
     end
-
   end
 end
