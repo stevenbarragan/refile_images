@@ -15,6 +15,10 @@ describe RefileImages::Imageable do
         small: "fit/100/100",
         large: "fill/1000/1000"
       }
+
+      images :pictures, defaults: {
+        small: "fit/20/20"
+      }
     end
 
     let(:instance) { klass.new }
@@ -51,6 +55,40 @@ describe RefileImages::Imageable do
           expect(instance.main_image.file_size).to eq 5
         end
 
+      end
+
+      describe ":association_:attachments" do
+        it "builds records from assigned files" do
+          instance.pictures_files = [Refile::FileDouble.new("hello", content_type: "image/png"), Refile::FileDouble.new("world", content_type: "image/png")]
+
+          expect(instance.save).to be_truthy
+          expect(instance.pictures.size).to eq 2
+          expect(instance.pictures[0].file_filename).to eq "pictures"
+          expect(instance.pictures[0].file.read).to eq "hello"
+          expect(instance.pictures[1].file.read).to eq "world"
+        end
+
+        it "set up default sizes" do
+          instance.pictures_files = [Refile::FileDouble.new("hello", content_type: "image/png"), Refile::FileDouble.new("world", content_type: "image/png")]
+
+          expect(instance.pictures[0].url_for :small).to include "fit/20/20"
+          expect(instance.pictures[1].url_for :small).to include "fit/20/20"
+        end
+
+        it "builds records from cache" do
+          instance.pictures_files = [
+            [
+              { id: Refile.cache.upload(Refile::FileDouble.new("hello")).id, content_type: "image/png" },
+              { id: Refile.cache.upload(Refile::FileDouble.new("world")).id, content_type: "image/png" }
+            ].to_json
+          ]
+
+          expect(instance.save).to be_truthy
+          expect(instance.pictures.size).to eq 2
+          expect(instance.pictures[0].file_filename).to eq "pictures"
+          expect(instance.pictures[0].file.read).to eq "hello"
+          expect(instance.pictures[1].file.read).to eq "world"
+        end
       end
     end
   end
