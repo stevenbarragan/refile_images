@@ -50,14 +50,14 @@ Your form:
 ### Get the default sizes urls
 
 ```ruby
-user.profile_imge.url_for(:sm)
-user.profile_imge.url_for(:lg)
+user.profile_imge.url(:sm)
+user.profile_imge.url(:lg)
 
-user.profile_imge.url_for(:sm, format: :png)
+user.profile_imge.url(:sm, format: :png)
 
 user.pictures.each do |picture|
-  picture.url_for(:main)
-  picture.url_for(:mobile)
+  picture.url(:main)
+  picture.url(:mobile)
 end
 ```
 

@@ -41,8 +41,8 @@ describe RefileImages::Imageable do
         it "set up default sizes" do
           instance.main_image = Refile::FileDouble.new("hello", content_type: "image/png")
 
-          expect(instance.main_image.url_for(:small)).to include "fit/100/100"
-          expect(instance.main_image.url_for(:large)).to include "fill/1000/1000"
+          expect(instance.main_image.url(:small)).to include "fit/100/100"
+          expect(instance.main_image.url(:large)).to include "fill/1000/1000"
         end
 
         it "receives serialized data and retrieves file from it" do
@@ -77,8 +77,8 @@ describe RefileImages::Imageable do
             Refile::FileDouble.new("world", content_type: "image/png")
           ]
 
-          expect(instance.pictures[0].url_for(:small)).to include "fit/20/20"
-          expect(instance.pictures[1].url_for(:small)).to include "fit/20/20"
+          expect(instance.pictures[0].url(:small)).to include "fit/20/20"
+          expect(instance.pictures[1].url(:small)).to include "fit/20/20"
         end
 
         it "builds records from cache" do
