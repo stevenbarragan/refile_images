@@ -10,7 +10,7 @@ Refile + Only one migration needed ever + default images sizes
 Add the gem:
 
 ```ruby
-gem "refile_images", github: "stacksocial/refile_images"
+gem "refile_images"
 ```
 
 Copy/Create [images](https://github.com/stacksocial/refile_images/blob/master/db/migrate/20161107201317_create_refile_images_images.rb) migration
