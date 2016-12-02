@@ -5,6 +5,6 @@ class Image < ActiveRecord::Base
   attachment :file, type: :image
 
   def url(size, *options)
-    imageable.get_image_url(self, size, *options)
+    imageable.get_url(self, size, *options)
   end
 end

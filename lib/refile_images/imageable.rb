@@ -78,7 +78,7 @@ module RefileImages
       end
     end
 
-    def get_image_url(image, size, *options)
+    def get_url(image, size, *options)
       Refile.attachment_url(
         image,
         :file,
