@@ -15,7 +15,7 @@ module RefileImages
         plural      = name.to_s.pluralize.to_sym
         singular    = name.to_s.singularize.to_sym
 
-        has_many plural, -> { where "#{attachment}_filename" => singular },
+        has_many plural, -> { where "#{attachment}_filename" => name },
           as:         :imageable,
           class_name: "Image",
           dependent:  :destroy,
