@@ -8,7 +8,6 @@ class Image < ActiveRecord::Base
     imageable.get_url(self, size, *options)
   end
 
-
   # Generate a custom image URL.
   #
   # If the filename option is not given, the filename is taken from the
