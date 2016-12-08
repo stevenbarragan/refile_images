@@ -4,8 +4,10 @@ class Image < ActiveRecord::Base
 
   attachment :file, type: :image
 
-  def url(size, *options)
-    imageable.get_url(self, size, *options)
+  def url(size, **options)
+    imageable.get_url(self,
+      size,
+      **options.reverse_merge(format: extension))
   end
 
   # Generate a custom image URL.
@@ -30,6 +32,14 @@ class Image < ActiveRecord::Base
   # @param [String, nil] prefix          Adds a prefix to the URL if the application is not mounted at root
   # @return [String, nil]                The generated URL
   def custom_url(*args, **options)
-    Refile.attachment_url(self, :file, *args, **options)
+    Refile.attachment_url(self,
+      :file,
+      *args,
+      **options.reverse_merge(format: extension))
+  end
+
+  def extension
+    type = MIME::Types[file_content_type][0]
+    type.extensions[0] if type
   end
 end
